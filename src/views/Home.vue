@@ -1,18 +1,44 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    <DroneDelivery/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import DroneDelivery from '@/components/DroneDelivery.ts';
 
 @Component({
   components: {
-    HelloWorld,
+    DroneDelivery,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+}
 </script>
+
+<style>
+
+.text-default {
+  color: #5298d3!important;
+}
+
+.input-default {
+  color: #5298d3!important;
+  border-color: #5298d3!important;
+  background-color: #eff8fe!important;
+}
+
+.table-default {
+  color: #5298d3!important;
+}
+
+.table-default, td{
+  vertical-align: middle!important;
+}
+
+.bv-row {
+  margin-top: 50px!important;
+}
+
+</style>

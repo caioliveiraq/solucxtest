@@ -1,0 +1,54 @@
+<div>
+    <b-container class="bv-row text-center">
+    <b-row>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="id" label="Id">
+            <b-form-input disabled id="id" v-model="tasks.id" class="input-default"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="name" label="Name">
+            <b-form-input disabled id="name" v-model="tasks.name" class="input-default"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="name" label="Address">
+            <b-form-input disabled id="address" v-model="tasks.address" class="input-default"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="battery" label="Battery">
+            <b-form-input disabled id="battery" v-model="tasks.battery" class="input-default"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="max_speed" label="Max Speed">
+            <b-form-input disabled id="max_speed" v-model="tasks.max_speed" class="input-default"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="average_speed" label="Average Speed">
+            <b-form-input disabled id="average_speed" v-model="tasks.average_speed" class="input-default"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="fly" label="Fly">
+            <b-icon-arrow-left v-if="tasks.fly > 50 && tasks.status == 'flying'"/>
+              <b-icon-arrow-right v-if="tasks.fly < 50 && tasks.status == 'flying'""/>
+              <b-progress v-if="tasks.status=='flying'" v-b-tooltip.hover="{variant: 'primary'}" :title="tasks.fly<50?'going':'coming'" height = "5px" :value="tasks.fly" max="100" class="mb-3"/>
+              <span v-else>-------------</span>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6" sm="6">
+          <b-form-group class="text-default font-weight-bold" label-for="status" label="Status">
+            <b-form-input disabled id="status" v-model="tasks.status" class="input-default"></b-form-input>
+          </b-form-group>
+        </b-col>
+    </b-row>
+    <b-row class="bv-row">
+      <b-col cols="12">
+        <b-button to="/" variant="primary" size="lg" ><b>Back</b></b-button>
+      </b-col>
+    </b-row>
+    </b-container>
+</div>

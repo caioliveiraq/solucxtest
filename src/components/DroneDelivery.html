@@ -1,0 +1,86 @@
+<div>
+  <b-container class="bv-row">
+    <b-row>
+      <b-col cols="6" sm="2">
+        <b-form-group class="text-default font-weight-bold" label-for="id" label="Drone ID">
+          <b-form-input v-b-tooltip.bottom="{variant: 'primary'}" title="Press <tab> for refresh" @change="filterChange('1')" id="id" v-model="id" class="input-default"></b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col cols="6" sm="4">
+        <b-form-group class="text-default font-weight-bold" label-for="name" label="Name">
+          <b-form-input v-b-tooltip.bottom="{variant: 'primary'}" title="Press <tab> for refresh" @change="filterChange('1')" id="name" v-model="name" class="input-default"></b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col cols="6" sm="3">
+        <b-form-group class="text-default font-weight-bold" label-for="fly" label="Current Fly">
+          <b-form-select id="fly" @change="filterChange('1')" v-model="fly" :options="FlyStatus" class="input-default"></b-form-select>
+        </b-form-group>
+      </b-col>
+      </b-col>
+      <b-col cols="6" sm="3">
+        <b-form-group class="text-default font-weight-bold" label-for="status" label="Status">
+          <b-form-select id="status" @change="filterChange('1')" v-model="status" :options="DroneStatus" class="input-default"></b-form-select>
+        </b-form-group>
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container class="bv-row">
+    <b-row>
+      <b-col cols="12">
+        <table id="droneTable" class="table b-table table-responsive-sm table-default table-hover text-center">
+          <thead>
+            <tr>
+              <th aria-colindex="1" class="text-left"><div>Id</div></th>
+              <th aria-colindex="2" class="text-left"><div>Name</div></th>
+              <th aria-colindex="3"><div>Battery</div></th>
+              <th aria-colindex="4"><div>Max Speed</div></th>
+              <th aria-colindex="5"><div>Average Speed</div></th>
+              <th aria-colindex="6"><div>Status</div></th>
+              <th aria-colindex="7"><div>Fly</div></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="task in tasks" :key="task.id">
+              <td aria-colindex="1" class="text-left">{{task.id}}</td>
+              <td aria-colindex="2" class="text-left">
+                <b-row>
+                  <b-col cols="0" sm="2">
+                    <p class="h2 mb-2"><b-icon-person-circle></b-icon-person-circle></p>
+                  </b-col>
+                  <b-col cols="3" sm="6"><b>{{task.name}}</b><br>{{task.address}}</b-col>
+                </b-row>
+              </td>
+              <td aria-colindex="3" role="cell">
+                <b-progress v-b-tooltip.hover="{variant: 'primary'}" :title="task.battery+'%'" height = "10px" :value="task.battery" max="100" class="mb-3"/>
+              </td>
+              <td aria-colindex="4" v-html="formatDecimal(task.max_speed)"></td>
+              <td aria-colindex="5" v-html="formatDecimal(task.average_speed)"></td>
+              <td aria-colindex="6"  class="text-center">
+                <b-icon-arrow-left v-if="task.fly > 50 && task.status == 'flying'"/>
+                <b-icon-arrow-right v-if="task.fly < 50 && task.status == 'flying'""/>
+                <b-progress v-if="task.status=='flying'" v-b-tooltip.hover="{variant: 'primary'}" :title="task.fly<50?'going':'coming'" height = "5px" :value="task.fly" max="100" class="mb-3"/>
+                <span v-else>-------------</span>
+              </td>
+              <td aria-colindex="7">
+                <b-button :to="'/drone/'+task.id" :variant="colorStatus(task.status)" size="sm" ><b>{{task.status.toUpperCase()}}</b></b-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="12">
+        <b-pagination
+          v-model="pageCurrent"
+          total-rows="944"
+          aria-controls="droneTable"
+          align="center"
+          @change="paginationChange"
+          :perPage="20"
+          hide-goto-end-buttons
+        ></b-pagination>
+      </b-col>
+    </b-row>
+  </b-container>
+</div>
